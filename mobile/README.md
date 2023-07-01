@@ -15,3 +15,5 @@
 ```
 
 `"dart.flutterSdkPath"`を設定することを推奨する記事は多くあったが、`"dart.flutterSdkPaths"`についてはほぼ見当たらなかったので苦労した...
+
+- 一度実行に成功した後、再度実行する際は`dart.flutterSdkPaths`がなくても動いたので発生条件・解決方法ともに正確には不明
