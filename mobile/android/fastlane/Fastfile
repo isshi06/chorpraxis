@@ -38,6 +38,10 @@ platform :android do
 
   desc "version up"
   lane :version_up do
+    increment_version_name(
+      app_project_dir: 'app',
+      bump_type: 'minor'
+    )
     increment_version_code(
       app_project_dir: 'app'
     )
