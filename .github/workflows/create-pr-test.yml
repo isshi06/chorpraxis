@@ -20,6 +20,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.2"
+      - name: bundle install
+        run: |
+          cd mobile && gem install bundler
+          bundle install
       - name: Install dependencies
         # package.json に記載されている依存関係をインストール
         run: yarn
