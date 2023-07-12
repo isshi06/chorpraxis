@@ -12,6 +12,8 @@ jobs:
       TZ: "Asia/Tokyo"
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
@@ -20,12 +22,17 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.2"
+      - name: bundle install
+        run: |
+          cd mobile && gem install bundler
+          bundle install
       - name: Install dependencies
         # package.json に記載されている依存関係をインストール
         run: yarn
       - run: |
           yarn version_up
       - run: |
+          git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -m "test ruby command"
