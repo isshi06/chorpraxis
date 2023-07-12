@@ -1,0 +1,10 @@
+{
+  "name": "chorpraxis",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "isshi06",
+  "license": "MIT",
+  "scripts": {
+    "version_up": "cd mobile/android && bundle exec fastlane version_up"
+  }
+}
