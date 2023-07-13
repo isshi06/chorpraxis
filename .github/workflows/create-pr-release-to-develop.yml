@@ -14,8 +14,10 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      
       - name: Create release pr
-        # head(-h)の指定をしないと、現在のブランチがheadになる
+        # head(-H)の指定をしないと、現在のブランチがheadになる
         # titleは要編集
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
