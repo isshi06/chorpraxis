@@ -1,4 +1,5 @@
 # releaseブランチマージ後、developブランチ向けのプルリクエストを作成する
+# releaseプルリクのマージ後、delete branchをブラウザで実行しないように注意
 name: Create PR from release to develop
 
 on:
@@ -17,4 +18,4 @@ jobs:
         # head(-h)の指定をしないと、現在のブランチがheadになる
         # titleは要編集
         run: |
-          gh pr create -B develop -h release -t 'from release to develop' -b "test"
+          gh pr create -B develop -h release -t "from release to develop" -b "test"
