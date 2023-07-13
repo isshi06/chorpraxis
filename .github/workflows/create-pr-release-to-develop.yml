@@ -1,5 +1,6 @@
 # releaseブランチマージ後、developブランチ向けのプルリクエストを作成する
 # releaseプルリクのマージ後、delete branchをブラウザで実行しないように注意
+# 厳密には、master宛のPRがマージされたらdevelopに対してPRを作成するので、release→masterのPRマージに限定しているわけではない
 name: Create PR from release to develop
 
 on:
