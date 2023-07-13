@@ -1,0 +1,21 @@
+# releaseブランチマージ後、developブランチ向けのプルリクエストを作成する
+# releaseプルリクのマージ後、delete branchをブラウザで実行しないように注意
+name: Create PR from release to develop
+
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
+
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create release pr
+        # head(-h)の指定をしないと、現在のブランチがheadになる
+        # titleは要編集
+        run: |
+          gh pr create -B develop -h release -t "from release to develop" -b "test"
