@@ -1,0 +1,23 @@
+# releaseブランチマージ後、developブランチ向けのプルリクエストを作成する
+name: Create PR from release to develop
+
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
+
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if pr exists
+        id: check_pr
+        run: |
+          pr_title=${{ (github.ref == 'refs/heads/stage' && 'Stage') || 'Develop' }}
+          base_branch=${{ (github.ref == 'refs/heads/stage' && 'main') || 'stage' }}
+          echo "::set-output name=count::$(gh pr list -S ${pr_title}' in:title' -B $base_branch | wc -l)"
+          echo "::set-output name=pr_title::$pr_title"
+          echo "::set-output name=base_branch::$base_branch"
