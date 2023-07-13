@@ -18,4 +18,4 @@ jobs:
         # head(-h)の指定をしないと、現在のブランチがheadになる
         # titleは要編集
         run: |
-          gh pr create -B develop -h release -t "from release to develop" -b "test"
+          gh pr create -B develop -H release -t "from release to develop" -b "test"
