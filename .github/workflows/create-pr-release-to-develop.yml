@@ -1,5 +1,6 @@
 # releaseブランチマージ後、developブランチ向けのプルリクエストを作成する
 # releaseプルリクのマージ後、delete branchをブラウザで実行しないように注意
+# 厳密には、master宛のPRがマージされたらdevelopに対してPRを作成するので、release→masterのPRマージに限定しているわけではない
 name: Create PR from release to develop
 
 on:
@@ -14,8 +15,26 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - name: Create release pr
-        # head(-h)の指定をしないと、現在のブランチがheadになる
-        # titleは要編集
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Use Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+      - name: bundle install
         run: |
-          gh pr create -B develop -h release -t "from release to develop" -b "test"
+          cd mobile && gem install bundler
+          bundle install
+
+      - name: Create a release pull request
+        env:
+          GIT_PR_RELEASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # master→developのPRを作成する
+          GIT_PR_RELEASE_BRANCH_PRODUCTION: develop
+          GIT_PR_RELEASE_BRANCH_STAGING: master
+          GIT_PR_RELEASE_TEMPLATE: .github/master_to_develop_pr_template.erb
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          gem install -N git-pr-release
+          git-pr-release --overwrite-description

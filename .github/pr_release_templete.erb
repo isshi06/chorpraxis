@@ -1,0 +1,9 @@
+## X.YY.Z
+### スケジュール
+- 審査提出 YYYY/MM/DD
+- リリース YYYY/MM/DD
+
+### リリース内容
+<% pull_requests.each do |pr| -%>
+<%=  pr.to_checklist_item %>
+<% end -%>
