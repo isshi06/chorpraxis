@@ -9,6 +9,8 @@ jobs:
   # リリース用PRが既に存在するかどうかをチェック
   check-release-pr-exists:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     outputs:
       pr_count: ${{ steps.check_pr_exitsts.outputs.test }}
     steps:
