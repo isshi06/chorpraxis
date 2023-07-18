@@ -14,6 +14,7 @@ jobs:
     outputs:
       pr_count: ${{ steps.check_pr_exitsts.outputs.test }}
     steps:
+      - uses: actions/checkout@v3
       - name: Check if pr exists
         id: check_pr_exitsts
         run: |
