@@ -12,7 +12,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     outputs:
-      pr_count: ${{ steps.check_pr_exitsts.outputs.test }}
+      release_pr_count: ${{ steps.check_pr_exitsts.outputs.pr_count }}
     steps:
       - uses: actions/checkout@v3
       - name: Check if pr exists
@@ -21,7 +21,7 @@ jobs:
           echo "pr_count=$(echo $(gh pr list -S 'Release to Main in:title' -B master | wc -l))" >> $GITHUB_OUTPUT
   create-release-pr:
     needs: check-release-pr-exists
-    if: ${{ needs.check-release-pr-exists.outputs.pr_count == 0 }}
+    if: ${{ needs.check-release-pr-exists.outputs.release_pr_count == 0 }}
     runs-on: ubuntu-latest
     # リリース用PRが既に存在する場合以下をスキップする
     env:
@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: debug
         run: |
-          echo "pr_count=${{ needs.check-release-pr-exists.outputs.pr_count }}"
+          echo "pr_count=${{ needs.check-release-pr-exists.outputs.release_pr_count }}"
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
