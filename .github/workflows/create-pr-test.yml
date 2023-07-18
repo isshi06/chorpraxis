@@ -6,8 +6,21 @@ on:
       - release
 
 jobs:
-  create-release-pr:
+  # リリース用PRが既に存在するかどうかをチェック
+  check-release-pr-exists:
     runs-on: ubuntu-latest
+    outputs:
+      pr_count: ${{ steps.check_pr_exitsts.outputs.test }}
+    steps:
+      - name: Check if pr exists
+        id: check_pr_exitsts
+        run: |
+          echo "$(gh pr list -S 'Release to Main in:title' -B master | wc -l)" >> $GITHUB_OUTPUT
+  create-release-pr:
+    needs: check-release-pr-exists
+    runs-on: ubuntu-latest
+    # リリース用PRが既に存在する場合以下をスキップする
+    if: ${{ needs.check-release-pr-exists.outputs.pr_count == 0 }}
     env:
       TZ: "Asia/Tokyo"
     steps:
@@ -30,9 +43,11 @@ jobs:
       - name: Install dependencies
         # package.json に記載されている依存関係をインストール
         run: yarn
-      - run: |
+      - name: Version up
+        run: |
           yarn version_up
-      - run: |
+      - name: Commit version_up files
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
