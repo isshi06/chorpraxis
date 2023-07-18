@@ -13,24 +13,30 @@
 - create mobile directory
   - (create flutter app named mobile ?)
 
-# release→master PR作成 actions
+# release→master PR 作成 actions
+
 ## 手動部分
-1. developにマージコミットを作る(厳密にはreleaseブランチにpushで発火するためdevelopである必要はないが、developから開発ブランチ切る運用にしたいため)
-   1. featureブランチなど
-2. developブランチからreleaseブランチを切ってpush
+
+1. develop にマージコミットを作る(厳密には release ブランチに push で発火するため develop である必要はないが、develop から開発ブランチ切る運用にしたいため)
+   1. feature ブランチなど
+2. develop ブランチから release ブランチを切って push
 
 ## 自動部分
-3. release→master PRが作成される
-4. yarn version_upが実行されコミット, プッシュされる
+
+3. release→master PR が作成される
+4. yarn version_up が実行されコミット, プッシュされる
 
 あとは普段通りマージするだけ
-ここでマージした際、delete branchしないように注意する必要がある
+ここでマージした際、delete branch しないように注意する必要がある
 
-# release→developの戻しPR作成 actions
+# release→develop の戻し PR 作成 actions
+
 ## 手動部分
-1. release→masterをマージ
-   1. 厳密にはmaster宛PRをマージが発火条件
+
+1. release→master をマージ
+   1. 厳密には master 宛 PR をマージが発火条件
 
 ## 自動部分
-1. release→developのPRが作成される
+
+1. master→develop の PR が作成される
    1. 主な差分としては`yarn version_up`の変更点になるはず
