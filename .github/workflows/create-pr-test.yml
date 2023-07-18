@@ -21,9 +21,9 @@ jobs:
           echo "pr_count=$(gh pr list -S 'Release to Main in:title' -B master | wc -l)" >> $GITHUB_OUTPUT
   create-release-pr:
     needs: check-release-pr-exists
+    if: ${{ needs.check-release-pr-exists.outputs.pr_count == 0 }}
     runs-on: ubuntu-latest
     # リリース用PRが既に存在する場合以下をスキップする
-    if: ${{ needs.check-release-pr-exists.outputs.pr_count == 0 }}
     env:
       TZ: "Asia/Tokyo"
     steps:
