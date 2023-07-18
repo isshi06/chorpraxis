@@ -18,7 +18,7 @@ jobs:
       - name: Check if pr exists
         id: check_pr_exitsts
         run: |
-          echo "$(gh pr list -S 'Release to Main in:title' -B master | wc -l)" >> $GITHUB_OUTPUT
+          echo "pr_count=$(gh pr list -S 'Release to Main in:title' -B master | wc -l)" >> $GITHUB_OUTPUT
   create-release-pr:
     needs: check-release-pr-exists
     runs-on: ubuntu-latest
