@@ -26,3 +26,5 @@
 ## ディレクトリ構造の参考
 
 https://zenn.dev/web_tips/articles/530d02aaf90400
+
+actions 動かないはず　 test
