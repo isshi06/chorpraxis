@@ -74,8 +74,6 @@ jobs:
     needs: check-release-pr-exists
     if: ${{ needs.check-release-pr-exists.outputs.release_pr_count != 0 }}
     runs-on: ubuntu-latest
-    env:
-      TZ: "Asia/Tokyo"
     steps:
       - name: debug
         run: |
