@@ -70,7 +70,13 @@ jobs:
         run: |
           gem install -N git-pr-release
           git-pr-release --overwrite-description
-      - name: print skipped
-        if: always() && ${{ needs.check-release-pr-exists.outputs.release_pr_count != 0 }}
+  skipped-create-pr:
+    needs: check-release-pr-exists
+    if: ${{ needs.check-release-pr-exists.outputs.release_pr_count != 0 }}
+    runs-on: ubuntu-latest
+    env:
+      TZ: "Asia/Tokyo"
+    steps:
+      - name: debug
         run: |
-          echo "skipped"
+          echo "既にrelease→mainのPRが存在するため、リリースPR作成処理はスキップされました"
