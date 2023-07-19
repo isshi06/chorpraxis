@@ -71,6 +71,6 @@ jobs:
           gem install -N git-pr-release
           git-pr-release --overwrite-description
       - name: print skipped
-        if: ${{ needs.check-release-pr-exists.outputs.release_pr_count != 0 }}
+        if: always() && ${{ needs.check-release-pr-exists.outputs.release_pr_count != 0 }}
         run: |
           echo "skipped"
