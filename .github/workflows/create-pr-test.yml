@@ -60,6 +60,7 @@ jobs:
           git commit -m "test ruby command"
           git push
 
+      # releaseブランチにマージコミットが存在しない場合、失敗する
       - name: Create a release pull request
         env:
           GIT_PR_RELEASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -69,3 +70,11 @@ jobs:
         run: |
           gem install -N git-pr-release
           git-pr-release --overwrite-description
+  skipped-create-pr:
+    needs: check-release-pr-exists
+    if: ${{ needs.check-release-pr-exists.outputs.release_pr_count != 0 }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: debug
+        run: |
+          echo "既にrelease→mainのPRが存在するため、リリースPR作成処理はスキップされました"
