@@ -6,7 +6,7 @@ name: Create PR from release to develop
 on:
   pull_request:
     branches:
-      - master
+      # - master
     types:
       - closed
 
