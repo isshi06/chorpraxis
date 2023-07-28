@@ -27,3 +27,5 @@
 
 https://zenn.dev/web_tips/articles/530d02aaf90400
 
+## github actions
+releaseにpushされたときmaster宛のPR作成
