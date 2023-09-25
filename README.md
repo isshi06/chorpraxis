@@ -1,7 +1,10 @@
 # About this repository
 
+## WIP
 - Mobile App Portfolio
   - Flutter
+
+## TODO
 - Front-End Portfolio
   - Next.js
 - Back-End Portfolio
